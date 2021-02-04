@@ -81,7 +81,12 @@ public class MyCarsController {
                 new IntegerSpinnerValueFactory(1980, LocalDate.now().getYear(), 2018)
         );
 
-        addButton.setOnAction(actionEvent -> addCar());
+        addButton.setOnAction(actionEvent -> {
+            addCar();
+            clearCarForm();
+                }
+
+        );
         addButton.disableProperty().bind(
                 modelTextField.textProperty().isEmpty()
                 .or(makerComboBox.valueProperty().isNull())
@@ -98,6 +103,15 @@ public class MyCarsController {
                 electricCheckBox.isSelected()
         );
         cars.add(car);
+
+    }
+    private void clearCarForm(){
+        modelTextField.clear();
+        makerComboBox.setValue("Maker");
+        registrationDatePicker.getEditor().clear();
+        creationYearSpinner.getValueFactory().setValue(2018);
+        electricCheckBox.setSelected(false);
+
     }
 
 }
