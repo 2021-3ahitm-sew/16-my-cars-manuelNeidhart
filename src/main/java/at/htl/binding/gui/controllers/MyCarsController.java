@@ -50,6 +50,7 @@ public class MyCarsController {
         initListView();
         bindCheckBoxes();
         initCarForm();
+        filterCheckBoxEvents();
     }
 
     private void initListView() {
@@ -85,7 +86,6 @@ public class MyCarsController {
             addCar();
             clearCarForm();
                 }
-
         );
         addButton.disableProperty().bind(
                 modelTextField.textProperty().isEmpty()
@@ -112,6 +112,12 @@ public class MyCarsController {
         creationYearSpinner.getValueFactory().setValue(2018);
         electricCheckBox.setSelected(false);
 
+    }
+    private void filterCheckBoxEvents(){
+        firstCheckBox.setDisable(true);
+        secondHalfCheckBox.setDisable(true);
+        firstHalfCheckBox.setDisable(true);
+        lastCheckBox.setDisable(true);
     }
 
 }
