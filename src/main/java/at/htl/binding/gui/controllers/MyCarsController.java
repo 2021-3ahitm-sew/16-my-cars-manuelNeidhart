@@ -6,9 +6,11 @@ import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
+import javafx.scene.input.InputEvent;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -128,10 +130,10 @@ public class MyCarsController {
 
     }
     private void filterCheckBoxEvents(){
-        firstCheckBox.setDisable(true);
-        secondHalfCheckBox.setDisable(true);
-        firstHalfCheckBox.setDisable(true);
-        lastCheckBox.setDisable(true);
+        firstCheckBox.addEventFilter(InputEvent.ANY, Event::consume);
+        lastCheckBox.addEventFilter(InputEvent.ANY, Event::consume);
+        firstHalfCheckBox.addEventFilter(InputEvent.ANY, Event::consume);
+        secondHalfCheckBox.addEventFilter(InputEvent.ANY, Event::consume);
     }
 
 }
