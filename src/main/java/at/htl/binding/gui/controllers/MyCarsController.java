@@ -2,6 +2,7 @@ package at.htl.binding.gui.controllers;
 
 import at.htl.binding.model.cars.Car;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -81,7 +82,7 @@ public class MyCarsController {
         creationYearSpinner.setValueFactory(
                 new IntegerSpinnerValueFactory(1980, LocalDate.now().getYear(), 2018)
         );
-
+/*
         addButton.setOnAction(actionEvent -> {
             addCar();
             clearCarForm();
@@ -91,7 +92,20 @@ public class MyCarsController {
                 modelTextField.textProperty().isEmpty()
                 .or(makerComboBox.valueProperty().isNull())
                 .or(registrationDatePicker.valueProperty().isNull())
-        );
+        );*/
+        bindAddButton();
+    }
+    private void bindAddButton(){
+        IntegerBinding registrationYear = Bindings.selectInteger(registrationDatePicker.valueProperty(), "year");
+        IntegerBinding creationYear = Bindings.selectInteger(creationYearSpinner.valueProperty());
+        addButton.setOnAction(actionEvent -> {
+            addCar();
+        clearCarForm();});
+        addButton.disableProperty().bind(
+                modelTextField.textProperty().isEmpty()
+                        .or(makerComboBox.valueProperty().isNull())
+                        .or(registrationDatePicker.valueProperty().isNull())
+                        .or(registrationYear.greaterThan(creationYear)));
     }
 
     private void addCar() {
